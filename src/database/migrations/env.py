@@ -5,6 +5,7 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlmodel import SQLModel
 
 from database.config import DatabaseConfig
 
@@ -18,14 +19,14 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 config.set_section_option(
-    "devdb", "sqlalchemy.url", DatabaseConfig().SQLALCHEMY_DATABASE_URI
+    "devdb", "sqlalchemy.url", str(DatabaseConfig().SQLALCHEMY_DATABASE_URI)
 )
 
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = SQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -8,3 +8,4 @@ Initialize Alembic
 - https://alembic.sqlalchemy.org/en/latest/cookbook.html#using-asyncio-with-alembic
 - `alembic init -t async src/database/migrations`
 - Migrations are saved in `src/database/migrations/versions`
+- For the devdb migrations: `alembic -n devdb revision --autogenerate -m "initial"`

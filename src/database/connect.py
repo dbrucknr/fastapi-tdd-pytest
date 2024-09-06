@@ -11,7 +11,6 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from database.config import DatabaseConfig
 
 config = DatabaseConfig()
-print(config.SQLALCHEMY_DATABASE_URI)
 engine = create_engine(url=str(config.SQLALCHEMY_DATABASE_URI), echo=True, future=True)
 async_engine = AsyncEngine(engine)
 base = declarative_base()
