@@ -1,8 +1,9 @@
 from fastapi import Depends, FastAPI
 
+from api.lifespan import lifespan
 from database.connect import AsyncSession, session
 
-api = FastAPI()
+api = FastAPI(lifespan=lifespan)
 
 
 @api.get(path="/")
