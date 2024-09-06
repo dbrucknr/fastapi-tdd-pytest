@@ -6,5 +6,5 @@ api = FastAPI()
 
 
 @api.get(path="/")
-async def index(aiopg: AsyncSession = Depends(session)) -> dict:
+async def index(database: AsyncSession = Depends(session)) -> dict:
     return {"message": "Hello, World!"}

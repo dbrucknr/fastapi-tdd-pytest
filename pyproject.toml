@@ -17,6 +17,8 @@ mypy = "^1.11.2"
 sqlalchemy = "^2.0.34"
 async-lru = "^2.0.4"
 asyncpg = "^0.29.0"
+alembic = "^1.13.2"
+sqlmodel = "^0.0.22"
 
 
 [build-system]
