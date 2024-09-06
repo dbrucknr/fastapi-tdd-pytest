@@ -2,7 +2,8 @@ from sqlmodel import Field, SQLModel
 
 
 class CategoryBase(SQLModel):
-    pass
+    title: str
+    description: str
 
 
 class Category(CategoryBase, table=True):
