@@ -10,3 +10,5 @@ Initialize Alembic
 - Migrations are saved in `src/database/migrations/versions`
 - For the devdb migrations: `alembic -n devdb revision --autogenerate -m "initial"`
 - then: `alembic -n devdb upgrade head`
+
+Pytest: `pytest -s`
