@@ -1,3 +1,7 @@
+networks:
+  dev-network:
+    driver: bridge
+
 services:
 
   dev-db:
@@ -9,11 +13,15 @@ services:
       - ./scripts:/docker-entrypoint-initdb.d
     env_file:
       - ./.env
+    networks:
+      - dev-network
 
   adminer:
     image: adminer
     restart: always
     ports:
       - "8080:8080"
+    networks:
+      - dev-network
 
 name: fastapi-tdd-pytest
