@@ -12,3 +12,12 @@ Initialize Alembic
 - then: `alembic -n devdb upgrade head`
 
 Pytest: `pytest -s`
+
+## Programmatically Generating Postgres DB with Docker
+
+- Users must have docker downloaded
+- `docker ps -a` can be helpful for seeing what containers are up if the context is set to `default` instead of `docker-linux`.
+- To switch contexts:
+  - `docker context ls`
+  - `docker context use default` or `docker context use desktop-linux`
+- The programmatically launched database is currently set to be deleted after the Pytest session: `await container.delete(force=True)`

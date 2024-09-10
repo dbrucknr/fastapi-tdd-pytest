@@ -43,4 +43,4 @@ class DatabaseConfig(BaseSettings):
 # https://github.com/aio-libs/async-lru
 @alru_cache
 async def get_db_config():
-    return DatabaseConfig().TEST_SQLALCHEMY_DATABASE_URI
+    return DatabaseConfig()

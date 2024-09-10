@@ -12,4 +12,4 @@ async def index(
     database: AsyncSession = Depends(session),
     config: DatabaseConfig = Depends(get_db_config),
 ) -> dict:
-    return {"testing_url": await config}
+    return {"configuration": await config}

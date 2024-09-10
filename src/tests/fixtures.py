@@ -6,6 +6,7 @@ from aiodocker import Docker, DockerError
 from aiodocker.images import DockerImages
 from alembic import command
 from alembic.config import Config
+from pytest import FixtureRequest
 from sqlalchemy.ext.asyncio.engine import AsyncConnection, AsyncEngine
 from sqlmodel import SQLModel, create_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -30,7 +31,7 @@ def run_upgrade(connection: AsyncConnection, cfg: Config):
 
 
 @pytest.fixture(scope="session")
-def event_loop(request) -> Generator:  # noqa: indirect usage
+def event_loop(request: FixtureRequest) -> Generator:  # noqa: indirect usage
     loop = get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
@@ -41,7 +42,7 @@ async def create_testing_database():
     docker = Docker()
     images = DockerImages(docker=docker)
     try:
-        # await images.pull(from_image="postgres:16.4-alpine3.20")
+        await images.pull(from_image="postgres:16.4-alpine3.20")
         container = await docker.containers.create_or_replace(
             name="test-db",
             config={
