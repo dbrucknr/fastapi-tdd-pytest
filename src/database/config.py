@@ -1,3 +1,4 @@
+from async_lru import alru_cache
 from pydantic import PostgresDsn, computed_field
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -9,10 +10,11 @@ class DatabaseConfig(BaseSettings):
     )
 
     POSTGRES_PORT: int = 5432
-    TEST_POSTGRES_PORT: int = 5434
+    TEST_POSTGRES_PORT: int
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
-    POSTGRES_DB: str = ""
+    POSTGRES_DB: str
+    TEST_POSTGRES_DB: str
     POSTGRES_SERVER: str
 
     @computed_field
@@ -33,9 +35,12 @@ class DatabaseConfig(BaseSettings):
             username=self.POSTGRES_USER,
             password=self.POSTGRES_PASSWORD,
             host=self.POSTGRES_SERVER,
-            port=self.TEST_POSTGRES_PORT,
-            path=f"{self.POSTGRES_DB}",
+            port=5434,
+            path=f"{self.TEST_POSTGRES_DB}",
         )
 
 
 # https://github.com/aio-libs/async-lru
+@alru_cache
+async def get_db_config():
+    return DatabaseConfig().TEST_SQLALCHEMY_DATABASE_URI

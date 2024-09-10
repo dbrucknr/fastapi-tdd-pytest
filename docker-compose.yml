@@ -16,6 +16,18 @@ services:
     networks:
       - dev-network
 
+  test-db:
+    image: postgres:16.4-alpine3.20
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+    env_file:
+      - ./.env
+    networks:
+      - dev-network
+
   adminer:
     image: adminer
     restart: always
