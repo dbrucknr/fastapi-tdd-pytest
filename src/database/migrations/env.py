@@ -22,7 +22,9 @@ if config.config_file_name is not None:
 config.set_section_option(
     "devdb", "sqlalchemy.url", str(DatabaseConfig().SQLALCHEMY_DATABASE_URI)
 )
-
+config.set_section_option(
+    "testdb", "sqlalchemy.url", str(DatabaseConfig().TEST_SQLALCHEMY_DATABASE_URI)
+)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
@@ -86,8 +88,12 @@ async def run_async_migrations() -> None:
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
+    connectable = config.attributes.get("connection", None)
 
-    asyncio.run(run_async_migrations())
+    if connectable is None:
+        asyncio.run(run_async_migrations())
+    else:
+        do_run_migrations(connectable)
 
 
 if context.is_offline_mode():
